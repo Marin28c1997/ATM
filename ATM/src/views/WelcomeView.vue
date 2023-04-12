@@ -6,6 +6,13 @@
         <div class="input-container">
           <n-space vertical>
             <h2>Bienvenido al cajero</h2>
+            <div class="imgs">
+             <img
+              src="https://img.icons8.com/external-xnimrodx-lineal-color-xnimrodx/64/null/external-keyboard-digital-marketing-xnimrodx-lineal-color-xnimrodx.png"
+            />
+            <img class="imgs" 
+            src="https://img.icons8.com/cute-clipart/64/null/lock.png"/>
+            </div>
             <input
               type="number"
               placeholder="Documento"
@@ -140,5 +147,11 @@ input{
 .container{
   width: 150%;
 }
-
+.imgs{
+  margin-left: -8%;
+  position: absolute;
+  top: 1.2%;
+  margin-top: 16%;
+  z-index: 1;
+}
 </style>
