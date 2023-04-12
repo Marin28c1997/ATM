@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-pink" v-if="value">{{ formatterPeso }}</button>
+  <button @click="$emit('setValue')" class="btn btn-pink" v-if="value">{{ formatterPeso }}</button>
   <button @click="$emit('showOtherValue')" class="btn btn-pink" v-else>{{ other }}</button>
 </template>
 

@@ -5,7 +5,13 @@
     </div>
     <div class="row d-flex justify-content-center align items-center" v-if="!isShow">
       <h2 class="fw-light pb-3 text-center">Selecciona el valor a retirar</h2>
-      <ButtonOut v-for="value in values" :key="value" :value="value" class="col-5" />
+      <ButtonOut
+        @setValue="cashOut"
+        v-for="value in values"
+        :key="value"
+        :value="value"
+        class="col-5"
+      />
       <ButtonOut @showOtherValue="otherValue" :other="other" class="col-5" />
     </div>
     <div class="container" v-else>
@@ -26,11 +32,15 @@
         />
       </div>
     </div>
+    <audio ref="audioPlayer">
+      <source src="../assets/audio/sound-keys.mp3" type="audio/mpeg" />
+    </audio>
   </div>
 </template>
 
 <script>
 import { defineAsyncComponent } from "vue";
+
 export default {
   components: {
     ButtonOut: defineAsyncComponent(() => import("@/components/ButtonOut.vue")),
@@ -47,15 +57,25 @@ export default {
 
   methods: {
     otherValue() {
+      this.$refs.audioPlayer.play();
       this.isShow = true;
     },
 
-    preventMinusSign(e) {
+    async preventMinusSign(e) {
+      setTimeout(() => {
+        this.$refs.audioPlayer.play();
+      }, 320);
+
       const formatNumber = Number(e.key);
 
       if (e.key !== "0" && !Number(formatNumber) && e.key !== "Backspace") {
         e.preventDefault();
       }
+    },
+
+    cashOut() {
+      console.log("esperando backend");
+      this.$refs.audioPlayer.play();
     },
   },
 
