@@ -1,18 +1,19 @@
 <template>
   <div class="container">
-    <n-row :gutter="0">
-      <n-col :span="7">
+    <n-row :gutter="12">
+      <!-- <n-row> -->
+      <n-col :span="12">
         <div class="light-green">
           <div class="input-container">
             <n-space vertical>
-              <h3>
+              <h2>
                 Bienvenido a VivaBanco
-                <p>Número {{Número}}</p>
-              </h3>
+                <p class="text-center">Número {{ Número }}</p>
+              </h2>
 
               <div class="imgs1">
                 <img
-                   v-if="!contrasena && showImage"
+                  v-if="!contrasena && showImage"
                   src="https://img.icons8.com/external-xnimrodx-lineal-color-xnimrodx/64/null/external-keyboard-digital-marketing-xnimrodx-lineal-color-xnimrodx.png"
                 />
                 <img
@@ -38,7 +39,7 @@
           </div>
         </div>
       </n-col>
-      <n-col :span="8">
+      <n-col :span="12">
         <div class="green">
           <div class="botones-container">
             <button
@@ -48,8 +49,17 @@
             >
               {{ numero }}
             </button>
-            <button class="delet" @click="deleteDigit()">Borrar</button>
-            <button class="go" @click="go()">Continuar</button>
+            <button class="delet" @click="deleteDigit()">Corregir 
+              <n-icon>
+                <CloseCircle />
+              </n-icon>
+            </button>
+            <button class="go" @click="go()">
+              Continuar
+              <n-icon>
+                <ChevronForwardCircle />
+              </n-icon>
+            </button>
           </div>
         </div>
       </n-col>
@@ -57,44 +67,44 @@
   </div>
 </template>
 
-
-
 <script>
+import { NIcon } from "naive-ui";
+import { ChevronForwardCircle, CloseCircle} from "@vicons/ionicons5";
 export default {
+  components: {
+    NIcon,
+    ChevronForwardCircle, 
+    CloseCircle
+  },
   data() {
     return {
       documento: "",
       contrasena: "",
       numeros: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-      showImage:false,
-      showImages:false
-
-
-};
+      showImage: false,
+      showImages: false,
+    };
   },
   mounted() {
-      window.addEventListener('keydown', (event) => {
-    if (isNaN(parseInt(event.key))) {
-      event.preventDefault();
-    }
-  });
+    window.addEventListener("keydown", (event) => {
+      if (isNaN(parseInt(event.key))) {
+        event.preventDefault();
+      }
+    });
     document.addEventListener("keydown", this.handleKeyDown);
   },
   beforeUnmount() {
-    document.removeEventListener("keydown", this.handleKeyDown);
+    window.removeEventListener("keydown", (event) => {
+      if (isNaN(parseInt(event.key))) {
+        event.preventDefault();
+      }
+    });
   },
   methods: {
-    handleKeyDown(event) {
-      const keyCode = event.keyCode || event.which;
-      if (keyCode >= 96 && keyCode <= 105) {
-        event.preventDefault();
-        // Aquí puedes llamar a tu función addDigit() con el número correspondiente al código de tecla presionado
-      }
-    },
     addDigit(numero) {
       if (this.documento.length < 10) {
         this.documento += numero.toString();
-     if (this.documento.length === 1) {
+        if (this.documento.length === 1) {
           this.showImage = true;
         }
       } else if (this.contrasena.length < 4) {
@@ -112,14 +122,15 @@ export default {
       }
     },
     go() {
-  if (this.contrasena.length < 4 || this.documento.length < 10) {
-    alert("La contraseña debe tener al menos 4 caracteres y el número debe tener al menos 10 dígitos");
-  } else {
-    // Continúa con la lógica normal
-    console.log("Continuar");
-  }
-}
-
+      if (this.contrasena.length < 4 || this.documento.length < 10) {
+        alert(
+          "La contraseña debe tener al menos 4 caracteres y el número debe tener al menos 10 dígitos"
+        );
+      } else {
+        // Continúa con la lógica normal
+        console.log("Continuar");
+      }
+    },
   },
 };
 </script>
@@ -130,89 +141,107 @@ export default {
 }
 
 .botones-container {
-display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 1%;
-    justify-items: center;
-    align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1%;
+  justify-items: center;
+  align-items: center;
 }
 
 button {
-  margin: 0;
-  font-size: 18px;
-  border: 1px solid #F23078;
+  font-size: 20px;
   border-radius: 100px;
-  background-color:transparent;
+  background-color: #f23078;
   cursor: pointer;
   width: 100%;
+  height: 80%;
   display: flex;
   align-items: center;
   justify-content: center;
   grid-area: auto;
-  color: #F23078;
-  margin-top: 5px;
-
+  color: #f2f2f2;
+  margin-top: 15px;
+  font-weight: 700;
 }
 
 button:hover {
-  background-color: #32d9d9;
+  background-color: transparent;
+  border: 1px solid #f23078;
 }
 
-.delet:hover{
-  background-color: #fff;
+.delet:hover {
+  background-color: rgb(202, 44, 44, 0.6);
+  border: 1px solid red;
 }
 
-.go:hover{
-  background-color: rgba(41, 39, 142, 0.8);
+.go:hover {
+  background-color: rgba(4, 147, 21, 0.4);
+  border: 1px solid green;
+}
+
+body {
+  background-color: rgb(19, 18, 64);
 }
 
 .light-green {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 200px;
+  height: 100%;
   background-color: rgb(19, 18, 64, 0.9);
+  border: 1px solid rgb(19, 18, 64, 0.9);
+  border-bottom-color: #f23078;
+  border-left-color: #f23078;
 }
+
 .green {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 200px;
+  height: 100%;
   background-color: rgb(19, 18, 64, 0.9);
+  border: 1px solid rgb(19, 18, 64, 0.9);
+  border-top-color: #f23078;
+  border-right-color: #f23078;
 }
 
-h3{
-  color: #F23078;
+h2 {
+  color: #f2f2f2;
   margin-bottom: -4%;
+  font-weight: 700;
 }
-
-input{
+p {
+  font-weight: 70;
+}
+input {
   width: 100%;
   color: #32d9d9;
   border-radius: 4px;
-  background-color:  rgba(41, 39, 142, 0.8);
+  font-weight: 700;
+  font-size: 80px;
+  background-color: rgba(41, 39, 142, 0.8);
+  margin-top: 15px;
+  margin-bottom: 2px;
 }
 
-::placeholder{
-  color: #F23078;
+::placeholder {
+  color: #f23078;
 }
 
-.container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2%;
-
+.container {
+  margin: 25% auto;
+  width: 88%;
+  padding: 2%;
 }
-.imgs1{
-  margin-left: 88%;
+.imgs1 {
+  margin-left: 79%;
   position: absolute;
   top: 1.2%;
-  margin-top: 26%;
+  margin-top: 24%;
   z-index: 1;
 }
-.imgs2{
+.imgs2 {
   margin-left: -100%;
   position: absolute;
   top: 1.2%;
@@ -220,15 +249,24 @@ input{
   z-index: 1;
 }
 
-@media screen and (max-width: 1024px) {
-  .container {
-    max-width: 100%;
-    margin-top: 2%;
-  }
-  .light-green,
-  .green {
-    height: auto;
-  }
+img {
+  width: 65px;
 }
 
+.imgs1 img,
+.imgs2 img {
+  animation: moveUpDown 3s infinite;
+}
+
+@keyframes moveUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
 </style>
