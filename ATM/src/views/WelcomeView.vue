@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <n-row >
+    <n-row>
       <!-- <n-row> -->
       <n-col :span="12">
         <div class="light-green">
@@ -57,6 +57,12 @@
                 <CloseCircle />
               </n-icon>
             </button>
+             <button
+              :key="numero"
+              @click="addDigit(0)"
+            >
+              0
+            </button>
             <button class="go" @click="go()">
               Continuar
               <n-icon>
@@ -67,36 +73,42 @@
         </div>
       </n-col>
     </n-row>
+    <div>
+      <audio ref="audioPlayer">
+        <source src="../assets/audio/sound-keys.mp3" type="audio/mpeg" />
+      </audio>
+    </div>
   </div>
 </template>
 
 <script>
 import { NIcon } from "naive-ui";
-import { ChevronForwardCircle, CloseCircle} from "@vicons/ionicons5";
+import { ChevronForwardCircle, CloseCircle } from "@vicons/ionicons5";
 export default {
   components: {
     NIcon,
-    ChevronForwardCircle, 
-    CloseCircle
+    ChevronForwardCircle,
+    CloseCircle,
   },
   data() {
     return {
       documento: "",
       contrasena: "",
-      numeros: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+      numeros: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       showImage: false,
       showImages: false,
     };
-  
   },
   methods: {
     addDigit(numero) {
       if (this.documento.length < 10) {
+        this.$refs.audioPlayer.play();
         this.documento += numero.toString();
         if (this.documento.length === 1) {
           this.showImage = true;
         }
       } else if (this.contrasena.length < 4) {
+        this.$refs.audioPlayer.play();
         this.contrasena += numero.toString();
         if (this.contrasena.length === 1) {
           this.showImages = true;
@@ -105,8 +117,10 @@ export default {
     },
     deleteDigit() {
       if (this.contrasena.length > 0) {
+        this.$refs.audioPlayer.play();
         this.contrasena = this.contrasena.slice(0, -1);
       } else {
+        this.$refs.audioPlayer.play();
         this.documento = this.documento.slice(0, -1);
       }
     },
@@ -117,6 +131,8 @@ export default {
         );
       } else {
         // Continúa con la lógica normal
+        this.documento =""
+        this.contrasena = ""
         console.log("Continuar");
       }
     },
@@ -125,6 +141,11 @@ export default {
 </script>
 
 <style>
+* {
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 400;
+}
+
 .input-container {
   margin-bottom: 20px;
 }
@@ -136,7 +157,6 @@ export default {
   gap: 1%;
   justify-items: center;
   align-items: center;
-  
 }
 
 button {
@@ -145,13 +165,14 @@ button {
   background-color: #f23078;
   cursor: pointer;
   width: 94%;
-  height: 98%;
+  height: 90%;
   display: flex;
   align-items: center;
   justify-content: center;
   grid-area: auto;
   color: #f2f2f2;
-  margin-top: 4px;
+  margin-top: 10px;
+  border: transparent;
   font-weight: 700;
 }
 
@@ -160,14 +181,14 @@ button:hover {
   border: 1px solid #f23078;
 }
 
-.delet:hover {
+.delet {
   background-color: rgb(202, 44, 44, 0.6);
-  border: 1px solid red;
+  border: transparent;
 }
 
-.go:hover {
+.go {
   background-color: rgba(4, 147, 21, 0.4);
-  border: 1px solid green;
+  border: transparent;
 }
 
 body {
@@ -221,14 +242,19 @@ input {
 
 .container {
   margin: 25% auto;
-  width: 88%;
-  padding: 2%;
+  width: 100%;
+  height: 100vh;
+  max-width: 1024px;
+  max-height: 768px;
+  color: #f2f2f2;
+  background-color: #131240;
+  overflow: hidden;
 }
 .imgs1 {
-  margin-left: 79%;
+  margin-left: 76%;
   position: absolute;
   top: 1.2%;
-  margin-top: 24%;
+  margin-top: 14%;
   z-index: 1;
 }
 .imgs2 {
@@ -240,7 +266,7 @@ input {
 }
 
 img {
-  width: 65px;
+  width: 100px;
 }
 
 .imgs1 img,
