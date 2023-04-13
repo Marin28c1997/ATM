@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <n-row :gutter="12">
+    <n-row >
       <!-- <n-row> -->
       <n-col :span="12">
         <div class="light-green">
@@ -28,12 +28,14 @@
                 :maxlength="10"
                 :minlength="6"
                 v-model="documento"
+                readonly
               />
               <input
                 placeholder="Contraseña"
                 type="password"
                 :maxlength="4"
                 v-model="contrasena"
+                readonly
               />
             </n-space>
           </div>
@@ -49,7 +51,8 @@
             >
               {{ numero }}
             </button>
-            <button class="delet" @click="deleteDigit()">Corregir 
+            <button class="delet" @click="deleteDigit()">
+              Corregir
               <n-icon>
                 <CloseCircle />
               </n-icon>
@@ -84,21 +87,7 @@ export default {
       showImage: false,
       showImages: false,
     };
-  },
-  mounted() {
-    window.addEventListener("keydown", (event) => {
-      if (isNaN(parseInt(event.key))) {
-        event.preventDefault();
-      }
-    });
-    document.addEventListener("keydown", this.handleKeyDown);
-  },
-  beforeUnmount() {
-    window.removeEventListener("keydown", (event) => {
-      if (isNaN(parseInt(event.key))) {
-        event.preventDefault();
-      }
-    });
+  
   },
   methods: {
     addDigit(numero) {
@@ -147,6 +136,7 @@ export default {
   gap: 1%;
   justify-items: center;
   align-items: center;
+  
 }
 
 button {
@@ -154,14 +144,14 @@ button {
   border-radius: 100px;
   background-color: #f23078;
   cursor: pointer;
-  width: 100%;
-  height: 80%;
+  width: 94%;
+  height: 98%;
   display: flex;
   align-items: center;
   justify-content: center;
   grid-area: auto;
   color: #f2f2f2;
-  margin-top: 15px;
+  margin-top: 4px;
   font-weight: 700;
 }
 
@@ -191,8 +181,8 @@ body {
   height: 100%;
   background-color: rgb(19, 18, 64, 0.9);
   border: 1px solid rgb(19, 18, 64, 0.9);
-  border-bottom-color: #f23078;
-  border-left-color: #f23078;
+  border-bottom-color: #32d9d9;
+  border-left-color: #32d9d9;
 }
 
 .green {
@@ -202,8 +192,8 @@ body {
   height: 100%;
   background-color: rgb(19, 18, 64, 0.9);
   border: 1px solid rgb(19, 18, 64, 0.9);
-  border-top-color: #f23078;
-  border-right-color: #f23078;
+  border-top-color: #32d9d9;
+  border-right-color: #32d9d9;
 }
 
 h2 {
