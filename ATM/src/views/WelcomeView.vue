@@ -182,12 +182,12 @@ button:hover {
 }
 
 .delet {
-  background-color: rgb(202, 44, 44, 0.6);
+  background-color: #78778c;
   border: transparent;
 }
 
 .go {
-  background-color: rgba(4, 147, 21, 0.4);
+  background-color: #78778c;
   border: transparent;
 }
 
@@ -204,6 +204,8 @@ body {
   border: 1px solid rgb(19, 18, 64, 0.9);
   border-bottom-color: #32d9d9;
   border-left-color: #32d9d9;
+  border-bottom-left-radius: 18px ;
+  padding: 5px;
 }
 
 .green {
@@ -215,6 +217,8 @@ body {
   border: 1px solid rgb(19, 18, 64, 0.9);
   border-top-color: #32d9d9;
   border-right-color: #32d9d9;
+  border-top-right-radius: 18px ;
+  padding: 5px;
 }
 
 h2 {
