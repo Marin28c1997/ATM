@@ -57,12 +57,7 @@
                 <CloseCircle />
               </n-icon>
             </button>
-             <button
-              :key="numero"
-              @click="addDigit(0)"
-            >
-              0
-            </button>
+            <button :key="numero" @click="addDigit(0)">0</button>
             <button class="go" @click="go()">
               Continuar
               <n-icon>
@@ -126,13 +121,16 @@ export default {
     },
     go() {
       if (this.contrasena.length < 4 || this.documento.length < 10) {
+        
+        this.$refs.audioPlayer.play();
         alert(
           "La contraseña debe tener al menos 4 caracteres y el número debe tener al menos 10 dígitos"
         );
       } else {
         // Continúa con la lógica normal
-        this.documento =""
-        this.contrasena = ""
+        this.$refs.audioPlayer.play();
+        this.documento = "";
+        this.contrasena = "";
         console.log("Continuar");
       }
     },
@@ -204,7 +202,7 @@ body {
   border: 1px solid rgb(19, 18, 64, 0.9);
   border-bottom-color: #32d9d9;
   border-left-color: #32d9d9;
-  border-bottom-left-radius: 18px ;
+  border-bottom-left-radius: 18px;
   padding: 5px;
 }
 
@@ -217,7 +215,7 @@ body {
   border: 1px solid rgb(19, 18, 64, 0.9);
   border-top-color: #32d9d9;
   border-right-color: #32d9d9;
-  border-top-right-radius: 18px ;
+  border-top-right-radius: 18px;
   padding: 5px;
 }
 
